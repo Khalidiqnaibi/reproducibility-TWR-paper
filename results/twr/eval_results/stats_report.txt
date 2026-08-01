@@ -1,0 +1,54 @@
+================================================================
+  Statistical Significance Report
+  TWR vs Standard  |  paired tests + effect sizes
+================================================================
+
+  Metric : nDCG@3 (Evidence Level)
+  -------
+  Paired queries (n)       : 170
+  Mean Delta (TWR-Standard): +0.1761
+  Std  Delta               : 0.1994
+  95% CI Delta             : [+0.1462, +0.2061]
+  Shapiro-Wilk W           : 0.9856
+  Distribution             : NORMAL (SW p = 0.0770 > 0.05)
+  Selected test            : Paired Student's t-test
+  t-statistic              : 11.4838
+  p-value (two-tailed)     : 6.247e-23
+  p-value (Holm-Bonferroni): 1.249e-22
+  Significance (raw)       : YES [PASS] (alpha = 0.05)
+  Significance (adjusted)  : YES [PASS] (alpha = 0.05)
+  Cliff's delta            : +0.6410  [large]
+
+  Metric : nDCG@3 (Journal Tier)
+  -------
+  Paired queries (n)       : 170
+  Mean Delta (TWR-Standard): +0.3348
+  Std  Delta               : 0.2934
+  95% CI Delta             : [+0.2907, +0.3789]
+  Shapiro-Wilk W           : 0.9627
+  Distribution             : SKEWED (SW p = 0.0002 <= 0.05)
+  Selected test            : Wilcoxon Signed-Rank test
+  W-statistic              : 427.0000
+  p-value (two-tailed)     : 8.226e-25
+  p-value (Holm-Bonferroni): 2.468e-24
+  Significance (raw)       : YES [PASS] (alpha = 0.05)
+  Significance (adjusted)  : YES [PASS] (alpha = 0.05)
+  Cliff's delta            : +0.7045  [large]
+
+  Metric : MRR (Authoritative Docs)
+  -------
+  Paired queries (n)       : 170
+  Mean Delta (TWR-Standard): +0.5415
+  Std  Delta               : 0.4047
+  95% CI Delta             : [+0.4806, +0.6023]
+  Shapiro-Wilk W           : 0.8322
+  Distribution             : SKEWED (SW p = 0.0000 <= 0.05)
+  Selected test            : Wilcoxon Signed-Rank test
+  W-statistic              : 14.5000
+  p-value (two-tailed)     : 1.522e-21
+  p-value (Holm-Bonferroni): 1.522e-21
+  Significance (raw)       : YES [PASS] (alpha = 0.05)
+  Significance (adjusted)  : YES [PASS] (alpha = 0.05)
+  Cliff's delta            : +0.6328  [large]
+
+================================================================
