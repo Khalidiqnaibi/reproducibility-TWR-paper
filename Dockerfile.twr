@@ -1,0 +1,35 @@
+# Dockerfile for Trust-Weighted-Ranking (TWR)
+# Place this file at the ROOT of the Trust-Weighted-Ranking repo, next to
+# app.py. Run fetch_data.sh first — it writes data_in/* AND this repo's
+# .env before you build, and both need to be present in the build context.
+
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir seaborn
+# seaborn is imported by eval/ablation_eval.py but missing from requirements.txt
+# upstream — installed explicitly here as a stopgap; fix requirements.txt too.
+
+# .env (written by fetch_data.sh) + data_in/* (downloaded by fetch_data.sh)
+# come in with this COPY. If .env is missing at build time, app.py's own
+# os.getenv() calls fall back to its hardcoded defaults instead — build
+# still succeeds, but paths may not match what you expect. Run
+# fetch_data.sh before `docker compose build` to avoid that.
+COPY . .
+
+# Pre-download the sentence-transformers model at build time so runs are
+# offline-reproducible and don't silently hit the network mid-experiment.
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+
+# These are the dirs app.py writes to — declare as volumes so results
+# survive `docker run --rm` and land on the host.
+VOLUME ["/app/data_out", "/app/eval_results"]
+
+ENTRYPOINT ["python", "app.py"]

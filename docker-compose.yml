@@ -1,0 +1,32 @@
+# Place this file ONE LEVEL ABOVE both repos:
+#
+#   reproducibility/
+#     docker-compose.yml
+#     fetch_data.sh
+#     run.sh
+#     Trust-Weighted-Ranking/   <- clone, Dockerfile.twr copied in as "Dockerfile"
+#     LTWR/                     <- clone, Dockerfile.ltwr copied in as "Dockerfile"
+#
+# One-click run: ./run.sh   (runs fetch_data.sh, then this)
+#
+# Everything each script writes shows up on the host under
+# ./results/twr and ./results/ltwr.
+
+services:
+  twr:
+    build:
+      context: ./Trust-Weighted-Ranking
+      dockerfile: Dockerfile
+    container_name: twr-experiment
+    volumes:
+      # matches EVAL_LOG_PATH / OUTPUT_DIR / DOC_DB_PATH in .env
+      - ./results/twr/data_out:/app/data_out
+      - ./results/twr/eval_results:/app/eval_results
+
+  ltwr:
+    build:
+      context: ./LTWR
+      dockerfile: Dockerfile
+    container_name: ltwr-experiment
+    volumes:
+      - ./results/ltwr:/app/eval_results
