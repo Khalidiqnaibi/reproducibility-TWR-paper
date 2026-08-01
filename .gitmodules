@@ -1,0 +1,6 @@
+[submodule "Trust-Weighted-Ranking"]
+	path = Trust-Weighted-Ranking
+	url = https://github.com/Khalidiqnaibi/Trust-Weighted-Ranking.git
+[submodule "LTWR"]
+	path = LTWR
+	url = https://github.com/Khalidiqnaibi/LTWR.git
